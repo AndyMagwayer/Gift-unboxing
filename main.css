@@ -1,0 +1,146 @@
+body {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    row-gap: 1em;
+    background-image: radial-gradient(circle, #fff 60%, #cfcecb);
+    font-family: sans-serif;
+  }
+  
+  .scratch-card {
+    position: relative;
+    border: 4px solid #c7c6cf;
+    border-radius: 8px;
+    padding: 12px;
+    width: 320px;
+    height: 320px;
+    background-color: #fff;
+  }
+  
+  .scratch-card-cover-container {
+    position: absolute;
+    z-index: 1;
+    top: 0;
+    left: 0;
+    border-radius: 4px;
+    width: 100%;
+    height: 100%;
+    filter: url("#remove-black");
+    transition: opacity 0.4s;
+  }
+  .scratch-card-cover-container.clear {
+    opacity: 0;
+  }
+  .scratch-card-cover-container.hidden {
+    display: none;
+  }
+  
+  .scratch-card-canvas {
+    position: absolute;
+    z-index: 2;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    cursor: grab;
+    touch-action: none;
+  }
+  .scratch-card-canvas.hidden {
+    opacity: 0;
+  }
+  .scratch-card-canvas:active {
+    cursor: grabbing;
+  }
+  
+  .scratch-card-canvas-render {
+    position: absolute;
+    z-index: 1;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: transparent;
+    transition: background-color 0.2s;
+  }
+  .scratch-card-canvas-render.hidden {
+    display: none;
+  }
+  
+  .scratch-card-cover {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: #cfced6;
+    background-image: linear-gradient(to right, #cfced6, #e0dfe6, #efeef3, #e0dfe6, #cfced6);
+    overflow: hidden;
+  }
+  .scratch-card-cover::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: linear-gradient(135deg, transparent 40%, rgba(255, 255, 255, 0.8) 50%, transparent 60%);
+    background-position: bottom right;
+    background-size: 300% 300%;
+    background-repeat: no-repeat;
+  }
+  .scratch-card-cover.shine::before {
+    animation: shine 8s infinite;
+  }
+  
+  @keyframes shine {
+    50% {
+      background-position: 0% 0%;
+    }
+    100% {
+      background-position: -50% -50%;
+    }
+  }
+  .scratch-card-cover::after {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    opacity: 0.1;
+    filter: url("#noise");
+  }
+  
+  .scratch-card-cover-background {
+    width: 100%;
+    height: 100%;
+    fill: #555;
+    opacity: 0.1;
+  }
+  
+  .scratch-card-image {
+    border-radius: 4px;
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    filter: drop-shadow(0 4px 4px rgba(0, 0, 0, 0.16));
+    user-select: none;
+    will-change: transform;
+  }
+  .scratch-card-image.animate {
+    animation: pop-out-in cubic-bezier(0.65, 1.35, 0.5, 1) 1s;
+  }
+  
+  @keyframes pop-out-in {
+    36% {
+      transform: scale(1.125);
+    }
+    100% {
+      transform: scale(1);
+    }
+  }
